@@ -171,12 +171,21 @@ jobs:
     steps:
     - name: Generate summary
       run: |
-        echo "## Wing Folding System CI Summary" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "### Build Status" >> $GITHUB_STEP_SUMMARY
-        echo "- Firmware build completed" >> $GITHUB_STEP_SUMMARY
-        echo "- Static analysis executed" >> $GITHUB_STEP_SUMMARY
-        echo "- Formal verification completed" >> $GITHUB_STEP_SUMMARY
-        echo "- Documentation verified" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo "All CI checks completed successfully! ✅" >> $GITHUB_STEP_SUMMARY
+        echo "## Wing Folding System CI Summary" >> "$GITHUB_STEP_SUMMARY"
+        echo "" >> "$GITHUB_STEP_SUMMARY"
+        echo "### Build Status" >> "$GITHUB_STEP_SUMMARY"
+        echo "- Firmware build: ${{ needs.build.result }}" >> "$GITHUB_STEP_SUMMARY"
+        echo "- Static analysis: ${{ needs.static-analysis.result }}" >> "$GITHUB_STEP_SUMMARY"
+        echo "- Formal verification: ${{ needs.formal-verification.result }}" >> "$GITHUB_STEP_SUMMARY"
+        echo "- Documentation: ${{ needs.documentation.result }}" >> "$GITHUB_STEP_SUMMARY"
+        echo "- Code formatting (lint): ${{ needs.lint.result }}" >> "$GITHUB_STEP_SUMMARY"
+        echo "" >> "$GITHUB_STEP_SUMMARY"
+        if [ "${{ needs.build.result }}" = "success" ] && \
+           [ "${{ needs.static-analysis.result }}" = "success" ] && \
+           [ "${{ needs.formal-verification.result }}" = "success" ] && \
+           [ "${{ needs.documentation.result }}" = "success" ] && \
+           [ "${{ needs.lint.result }}" = "success" ]; then
+          echo "All CI checks completed successfully! ✅" >> "$GITHUB_STEP_SUMMARY"
+        else
+          echo "Some CI checks failed. ❌ Please review the job results above." >> "$GITHUB_STEP_SUMMARY"
+        fi
