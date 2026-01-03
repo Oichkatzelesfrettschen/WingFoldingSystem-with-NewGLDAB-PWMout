@@ -286,9 +286,10 @@ ServoRangeSafety ==
 MotorRangeSafety ==
   motorSpeed \in ValidPWM
 
-\* Wing folding only occurs when throttle is above minimum threshold
+\* Wing folding only occurs when throttle is above minimum threshold,
+\* except in STOOP control mode where folding is allowed at any throttle.
 FoldThrottleSafety ==
-  (foldState = "FOLDING" \/ foldState = "FOLDED") => motorSpeed > FOLD_THRESHOLD
+  (foldState = "FOLDING" /\ controlMode /= "STOOP") => motorSpeed > FOLD_THRESHOLD
 
 \* Glide lock only activates below throttle threshold
 GlideThrottleSafety ==
