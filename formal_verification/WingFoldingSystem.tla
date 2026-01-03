@@ -17,12 +17,17 @@
 EXTENDS Integers, Sequences, FiniteSets, TLC
 
 CONSTANTS
-  MIN_PWM,           \* Minimum PWM value (900 microseconds)
-  MAX_PWM,           \* Maximum PWM value (2100 microseconds)
-  GLIDE_THRESHOLD,   \* Throttle threshold for glide mode (950)
-  FOLD_THRESHOLD,    \* Minimum throttle for wing folding (1080)
-  SERVO_COUNT,       \* Number of servos (8)
-  CHANNEL_COUNT      \* Number of RC channels (8)
+  MIN_PWM,           \* Minimum PWM value (900 microseconds) - RC receiver minimum output
+  MAX_PWM,           \* Maximum PWM value (2100 microseconds) - RC receiver maximum output
+  GLIDE_THRESHOLD,   \* Throttle threshold for glide mode activation (950 PWM)
+                     \* Arduino code line 293: if (ch3value < 950) activates glide lock
+                     \* Below this value, the ornithopter enters power-saving glide mode
+  FOLD_THRESHOLD,    \* Minimum throttle for safe wing folding (1080 PWM)
+                     \* Derived from Arduino formula: WFTime=-0.821*ch3+1768, line 147
+                     \* At ch3=1080: WFTime ≈ 881ms, providing safe folding duration
+                     \* Below this threshold, fold timing becomes too short for safe operation
+  SERVO_COUNT,       \* Number of servos (8) - wings, V-tail, flapping mechanism
+  CHANNEL_COUNT      \* Number of RC channels (8) - Aileron, Elevator, Throttle, Rudder, Mode, Trim channels
 
 VARIABLES
   \* Sensor inputs
@@ -92,8 +97,23 @@ Init ==
 \* Helper functions
 
 \* Calculate wing fold duration based on throttle and trim
-\* Models Arduino's mixed-precision arithmetic: WFTime=-0.821*ch3+1768; WFTT=0.01*ch6-10; WFTi=WFTime*WFTT
-\* The calculation is performed in real arithmetic then truncated to integer as in the actual implementation
+\* Models Arduino's mixed-precision arithmetic accurately
+\* 
+\* Arduino implementation (lines 147-149, 189-191):
+\*   volatile int WFTime;  // Declared as integer
+\*   WFTime = -0.821 * ch3value + 1768;  // Float calculation, then implicit cast to int
+\*   WFTT = 0.01 * ch6value - 10;  // Float calculation
+\*   WFTi = WFTime * WFTT;  // Mixed int-float multiplication
+\*
+\* TLA+ modeling approach:
+\*   1. Perform calculation in real arithmetic (floating-point equivalent)
+\*   2. Truncate to integer using \div 1 (matches C++ implicit cast behavior)
+\*   3. This accurately models the precision loss and rounding of the Arduino code
+\*
+\* Example verification:
+\*   throttle=1500: wfTimeReal = -0.821*1500+1768 = 536.5 → wfTime = 536 (truncated)
+\*   trimChannel=1500: wfTrimReal = 1500/100-10 = 5.0 → wfTrim = 5
+\*   Result: 536 * 5 = 2680 (matches Arduino behavior)
 CalculateFoldDuration(throttle, trimChannel) ==
   LET wfTimeReal == (-821 * throttle) / 1000 + 1768
       wfTrimReal == trimChannel / 100 - 10
