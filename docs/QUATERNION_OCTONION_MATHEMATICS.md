@@ -286,10 +286,13 @@ struct Quaternion {
     }
 };
 
-// Rotate vector
+// Rotate vector using quaternion sandwich product q * v * q*
+// For a unit quaternion q, v' = q * v_quat * q.conjugate() applies the 3D rotation encoded by q to vector v.
 Vector3 rotate(const Vector3& v, const Quaternion& q) {
     Quaternion v_quat(0, v.x, v.y, v.z);
     Quaternion result = q * v_quat * q.conjugate();
+    // Normalize to mitigate numerical drift from floating-point error in repeated rotations
+    result.normalize();
     return Vector3(result.x, result.y, result.z);
 }
 
