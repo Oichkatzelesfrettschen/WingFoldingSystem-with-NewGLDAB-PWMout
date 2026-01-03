@@ -75,7 +75,7 @@ jobs:
     - name: Run PlatformIO check
       run: |
         cd $GITHUB_WORKSPACE
-        pio check --fail-on-defect=medium || echo "Check completed with warnings"
+        pio check --fail-on-defect=medium || (echo "Check found defects" && exit 1)
     
     - name: Run cppcheck
       run: |
