@@ -161,7 +161,7 @@ jobs:
       run: |
         # Check C/C++ files
         find sketch250209PWMoutAGLDABFoldWingiVtail2S -name "*.cpp" -o -name "*.h" | \
-          xargs clang-format --dry-run -Werror || echo "Formatting suggestions available"
+          xargs clang-format --dry-run -Werror
 
   summary:
     name: Build Summary
