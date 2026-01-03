@@ -145,18 +145,22 @@
 (push)
 
 ; Declare fold timing variables
-(declare-const WFTime Real)
+(declare-const WFTime Int)
+(declare-const WFTime_real Real)
 (declare-const WFTT Real)
 (declare-const WFTi Real)
 
-; Wing fold time calculation: WFTime = -0.821 * ch3 + 1768
-(assert (= WFTime (+ (* -0.821 (to_real ch3)) 1768.0)))
+; Wing fold time calculation in Arduino:
+;   WFTime (int) = -0.821 * ch3value + 1768;
+; Model this as a real intermediate followed by truncation to int.
+(assert (= WFTime_real (+ (* -0.821 (to_real ch3)) 1768.0)))
+(assert (= WFTime (to_int WFTime_real)))
 
 ; Wing fold time trim: WFTT = 0.01 * ch6 - 10
 (assert (= WFTT (- (* 0.01 (to_real ch6)) 10.0)))
 
 ; Combined fold duration: WFTi = WFTime * WFTT
-(assert (= WFTi (* WFTime WFTT)))
+(assert (= WFTi (* (to_real WFTime) WFTT)))
 
 ; Timing constraints
 (assert (>= WFTi 0.0))
