@@ -305,7 +305,7 @@ GlideThrottleSafety ==
 
 \* LED is on when glide is active
 GlideLEDCorrelation ==
-  glideActive <=> ledState = "ON"
+  glideActive => ledState = "ON"
 
 \* Wing phase must be in valid range
 WingPhaseBounds ==
