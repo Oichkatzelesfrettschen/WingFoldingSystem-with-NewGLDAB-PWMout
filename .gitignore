@@ -1,0 +1,41 @@
+# PlatformIO
+.pio/
+.vscode/
+.pioenvs/
+.piolibdeps/
+.clang_complete
+.gcc-flags.json
+
+# Arduino
+*.hex
+*.elf
+*.eep
+*.map
+
+# Build artifacts
+build/
+dist/
+*.o
+*.a
+*.so
+*.dylib
+
+# IDE
+.DS_Store
+*.swp
+*.swo
+*~
+.idea/
+*.iml
+
+# Python (for verification scripts)
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+
+# Z3 and TLA+ outputs
+z3_output/
+tlaplus_output/
+*.tla~
