@@ -46,12 +46,12 @@ verify: verify-z3
 verify-tla: $(TLA_SPEC) $(TLA_CONFIG)
 	@echo "Running TLA+ Model Checking..."
 	@mkdir -p $(TLC_OUTPUT)
-	@if command -v java >/dev/null 2>&1 && [ -f tla2tools.jar ]; then \
+	@if command -v java >/dev/null 2>&1 && java -version 2>&1 | grep -q "version \"1\.[8-9]\|version \"[0-9][0-9]" && [ -f tla2tools.jar ]; then \
 		$(TLC) -config $(TLA_CONFIG) $(TLA_SPEC) -workers auto -deadlock \
 			2>&1 | tee $(TLC_OUTPUT)/tlc_output.txt; \
 	else \
-		echo "Error: Java or tla2tools.jar not found"; \
-		echo "Please install Java and download tla2tools.jar"; \
+		echo "Error: Java 8 or higher, or tla2tools.jar, not found"; \
+		echo "Please install Java 8+ and download tla2tools.jar"; \
 		exit 1; \
 	fi
 
