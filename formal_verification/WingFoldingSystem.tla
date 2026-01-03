@@ -92,9 +92,13 @@ Init ==
 \* Helper functions
 
 \* Calculate wing fold duration based on throttle and trim
+\* Models Arduino's mixed-precision arithmetic: WFTime=-0.821*ch3+1768; WFTT=0.01*ch6-10; WFTi=WFTime*WFTT
+\* The calculation is performed in real arithmetic then truncated to integer as in the actual implementation
 CalculateFoldDuration(throttle, trimChannel) ==
-  LET wfTime == (-821 * throttle) \div 1000 + 1768
-      wfTrim == (trimChannel \div 100) - 10
+  LET wfTimeReal == (-821 * throttle) / 1000 + 1768
+      wfTrimReal == trimChannel / 100 - 10
+      wfTime == wfTimeReal \div 1  \* Truncate to integer (floor for positive, ceiling for negative)
+      wfTrim == wfTrimReal \div 1
   IN wfTime * wfTrim
 
 \* Calculate servo value for wing with aileron and fold trim

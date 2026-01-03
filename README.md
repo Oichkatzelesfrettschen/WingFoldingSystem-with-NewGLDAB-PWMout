@@ -124,7 +124,7 @@ Comprehensive technical documentation is available in the [`docs/`](docs/) direc
 
 ---
 
-# How to operate
+## 🕹️ How to Operate
 
 Ornithopter can fold its wings like a real bird
 
