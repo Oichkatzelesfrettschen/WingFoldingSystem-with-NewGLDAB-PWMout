@@ -25,11 +25,11 @@ This system combines a New GLDAB (Glide Lock Detection And Brake) by Arduino wit
 
 5) By operating the Aileron, one wing is folded, allowing the Ornithopter to turn left or right.
 
-6) The two tail servos are set to Inverted VTail mixing in the CODE. It moves by operating the Rudder and Elevator, and you can control turning left and right and ascending and descending.
+6) The two tail servos are set to Inverted V-tail mixing in the CODE. It moves by operating the Rudder and Elevator, and you can control turning left and right and ascending and descending.
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Building with PlatformIO (Recommended)
 
@@ -65,14 +65,14 @@ make clean
 
 ### Traditional Arduino IDE
 
-1. Open `sketch250209PWMoutAGLDABFoldWingiVtail2S/sketch250209PWMoutAGLDABFoldWingiVtail2S.ino`
+1. Open `sketch250209PWMoutAGLDABFoldWingiV-tail2S/sketch250209PWMoutAGLDABFoldWingiV-tail2S.ino`
 2. Install Servo library (usually pre-installed)
 3. Select your board (Arduino Uno/Mega/Nano)
 4. Compile and upload
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 Comprehensive technical documentation is available in the [`docs/`](docs/) directory:
 
@@ -102,7 +102,7 @@ Comprehensive technical documentation is available in the [`docs/`](docs/) direc
 
 ---
 
-## 🔧 System Features
+## System Features
 
 ### Core Functionality
 
@@ -124,7 +124,7 @@ Comprehensive technical documentation is available in the [`docs/`](docs/) direc
 
 ---
 
-## 🕹️ How to Operate
+## How to Operate
 
 Ornithopter can fold its wings like a real bird
 
@@ -144,7 +144,7 @@ There are three modes---Wing Folding mode, No Wing Folding Mode, Stoop mode
 
 5) NewGLDAB is built in, so the wings can be easily fixed in the gliding position.
 
-6) The tail can be operated with two servos to control the Inverted Vtail.
+6) The tail can be operated with two servos to control the Inverted V-tail.
 
 
 
@@ -190,7 +190,7 @@ https://ieeexplore.ieee.org/document/9849140
 
 ---
 
-## 🛠️ Build System & Continuous Integration
+## Build System & Continuous Integration
 
 ### Modern Build Infrastructure
 
@@ -224,7 +224,7 @@ The CI pipeline automatically:
 
 ---
 
-## 🔬 Formal Verification
+## Formal Verification
 
 ### TLA+ Model Checking
 
@@ -252,7 +252,7 @@ See [formal_verification/README.md](formal_verification/README.md) for details.
 
 ---
 
-## 📊 Technical Architecture
+## Technical Architecture
 
 ### Hardware Components
 
@@ -326,7 +326,7 @@ q = [cos(θ/2), sin(θ/2)·n_x, sin(θ/2)·n_y, sin(θ/2)·n_z]
 - Compact representation
 - Stable numerical properties
 
-### V-Tail Mixing
+### V-tail Mixing
 
 Inverted V-tail control uses mixing matrix:
 
@@ -337,8 +337,8 @@ Inverted V-tail control uses mixing matrix:
 
 Implementation:
 ```c
-RtVtailS = ch4 + (-ch2 + 1500);  // Rudder - Elevator
-LtVtailS = ch4 + (ch2 - 1500);   // Rudder + Elevator
+RtV-tailS = ch4 + (-ch2 + 1500);  // Rudder - Elevator
+LtV-tailS = ch4 + (ch2 - 1500);   // Rudder + Elevator
 ```
 
 ### Wing Folding Dynamics
@@ -354,7 +354,7 @@ See [docs/QUATERNION_OCTONION_MATHEMATICS.md](docs/QUATERNION_OCTONION_MATHEMATI
 
 ---
 
-## 🔮 Future Enhancements
+## Future Enhancements
 
 ### Planned Features
 
@@ -384,7 +384,7 @@ See [docs/QUATERNION_OCTONION_MATHEMATICS.md](docs/QUATERNION_OCTONION_MATHEMATI
 
 ---
 
-## 📝 Contributing
+## Contributing
 
 Contributions are welcome! Areas for contribution:
 
@@ -402,7 +402,7 @@ This project is open source. See LICENSE file for details.
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Original GLDAB concept: [New GLDAB Arduino with PWM output](https://github.com/KazuKaku/New-GLDAB-Arduino-with-PWM-output)
 - PPM Reader library: Aapo Nikkilä, Dmitry Grigoryev

@@ -79,10 +79,11 @@ jobs:
     
     - name: Run cppcheck
       run: |
-        cppcheck --enable=all --suppress=missingInclude \
+        cppcheck --enable=all \
           --std=c++11 --language=c++ \
+          --error-exitcode=1 \
           sketch250209PWMoutAGLDABFoldWingiVtail2S/ \
-          --xml 2> cppcheck-report.xml || echo "Cppcheck completed with warnings"
+          --xml 2> cppcheck-report.xml
     
     - name: Upload analysis results
       uses: actions/upload-artifact@v3
@@ -185,7 +186,7 @@ jobs:
            [ "${{ needs.formal-verification.result }}" = "success" ] && \
            [ "${{ needs.documentation.result }}" = "success" ] && \
            [ "${{ needs.lint.result }}" = "success" ]; then
-          echo "All CI checks completed successfully! ✅" >> "$GITHUB_STEP_SUMMARY"
+          echo "All CI checks completed successfully! [PASS]" >> "$GITHUB_STEP_SUMMARY"
         else
-          echo "Some CI checks failed. ❌ Please review the job results above." >> "$GITHUB_STEP_SUMMARY"
+          echo "Some CI checks failed. [FAIL] Please review the job results above." >> "$GITHUB_STEP_SUMMARY"
         fi

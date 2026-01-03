@@ -216,7 +216,7 @@ PWM_μs = PWM_min + (θ - θ_min) × (PWM_max - PWM_min) / (θ_max - θ_min)
 PWM_μs ∈ [900, 2100] μs
 ```
 
-### 3.4 V-Tail Mixing Mathematics
+### 3.4 V-tail Mixing Mathematics
 
 The inverted V-tail configuration requires coordinate transformation:
 
@@ -228,8 +228,8 @@ The inverted V-tail configuration requires coordinate transformation:
 
 **Implementation:**
 ```c
-RtVtailS = ch4value + (-ch2value + 1500);  // Rudder - Elevator
-LtVtailS = ch4value + (ch2value - 1500);   // Rudder + Elevator
+RtV-tailS = ch4value + (-ch2value + 1500);  // Rudder - Elevator
+LtV-tailS = ch4value + (ch2value - 1500);   // Rudder + Elevator
 ```
 
 **Geometric Derivation:**
@@ -867,12 +867,12 @@ sat
 
 ### 9.4 Formal Verification of Control Logic
 
-**V-Tail Mixing Correctness:**
+**V-tail Mixing Correctness:**
 ```z3
 (declare-const ch2 Int)  ; Elevator
 (declare-const ch4 Int)  ; Rudder
-(declare-const RtVtailS Int)
-(declare-const LtVtailS Int)
+(declare-const RtV-tailS Int)
+(declare-const LtV-tailS Int)
 
 (assert (>= ch2 1000))
 (assert (<= ch2 2000))
@@ -880,17 +880,17 @@ sat
 (assert (<= ch4 2000))
 
 ; Mixing equations
-(assert (= RtVtailS (+ ch4 (- (- ch2) 1500))))
-(assert (= LtVtailS (+ ch4 (- ch2 1500))))
+(assert (= RtV-tailS (+ ch4 (- (- ch2) 1500))))
+(assert (= LtV-tailS (+ ch4 (- ch2 1500))))
 
 ; Range constraints
-(assert (>= RtVtailS 900))
-(assert (<= RtVtailS 2100))
-(assert (>= LtVtailS 900))
-(assert (<= LtVtailS 2100))
+(assert (>= RtV-tailS 900))
+(assert (<= RtV-tailS 2100))
+(assert (>= LtV-tailS 900))
+(assert (<= LtV-tailS 2100))
 
 ; Symmetry property
-(assert (= (+ RtVtailS LtVtailS) (* 2 ch4)))
+(assert (= (+ RtV-tailS LtV-tailS) (* 2 ch4)))
 
 (check-sat)
 (get-model)
@@ -970,7 +970,7 @@ pio check --flags "--enable=all"
 **Doxygen Configuration:**
 ```doxyfile
 PROJECT_NAME = "Wing Folding System"
-INPUT = sketch250209PWMoutAGLDABFoldWingiVtail2S/
+INPUT = sketch250209PWMoutAGLDABFoldWingiV-tail2S/
 RECURSIVE = YES
 EXTRACT_ALL = YES
 ```

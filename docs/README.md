@@ -164,7 +164,7 @@ Use these sections in new documents:
 
 ### In This Repository
 - `/formal_verification/` - TLA+ and Z3 specifications
-- `/sketch250209PWMoutAGLDABFoldWingiVtail2S/` - Arduino source code
+- `/sketch250209PWMoutAGLDABFoldWingiV-tail2S/` - Arduino source code
 - `platformio.ini` - Build configuration
 - `Makefile` - Build automation
 

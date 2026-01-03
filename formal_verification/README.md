@@ -77,7 +77,7 @@ make clean
 
 ### Functional Correctness
 
-1. **V-Tail Mixing**: Verifies inverted V-tail mixing equations
+1. **V-tail Mixing**: Verifies inverted V-tail mixing equations
 2. **Wing Servo Calculations**: Validates aileron to servo position mapping
 3. **Wing Folding Timing**: Checks fold duration calculations
 4. **Control Mode Logic**: Verifies mode selection based on RC channel 5
@@ -119,7 +119,7 @@ Fold States:
 The Z3 verification checks:
 
 1. **Servo Range Constraints**: Ensures servo calculations stay within bounds
-2. **V-Tail Mixing Correctness**: Validates mixing equations
+2. **V-tail Mixing Correctness**: Validates mixing equations
 3. **Wing Folding Timing**: Checks timing calculations
 4. **Control Mode Logic**: Verifies mode determination
 5. **Glide Lock Logic**: Validates activation conditions
