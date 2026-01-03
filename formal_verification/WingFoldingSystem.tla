@@ -135,10 +135,7 @@ DetermineControlMode(ch5) ==
 UpdateSensors ==
   /\ hallSensorWing' \in BOOLEAN
   /\ hallSensorGlide' \in BOOLEAN
-  /\ rcChannels' = [i \in 1..CHANNEL_COUNT |-> 
-                     IF rcChannels[i] + 10 > MAX_PWM THEN MIN_PWM
-                     ELSE IF rcChannels[i] + 10 < MIN_PWM THEN MAX_PWM
-                     ELSE rcChannels[i] + 10]
+  /\ rcChannels' \in [1..CHANNEL_COUNT -> ValidPWM]
   /\ UNCHANGED <<wingPhase, foldState, controlMode, motorSpeed, 
                  servoCommands, ledState, foldTimer, foldDuration, glideActive>>
 
