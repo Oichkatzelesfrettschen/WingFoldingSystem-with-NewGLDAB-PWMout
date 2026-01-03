@@ -2,7 +2,7 @@
 ; Verifies servo command constraints and control mixing logic
 ;
 ; Author: Research & Development Team
-; Date: 2025-01-02
+; Created: 2025-01-02
 
 ; ==============================================================================
 ; 1. SERVO RANGE CONSTRAINTS VERIFICATION
