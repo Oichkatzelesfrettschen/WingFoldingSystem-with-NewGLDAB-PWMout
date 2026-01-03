@@ -17,7 +17,7 @@ This document provides an exhaustive mathematical, materials science, and fluid 
 6. [Sensor Integration & Data Fusion](#6-sensor-integration--data-fusion)
 7. [Machine Learning & Situational Awareness](#7-machine-learning--situational-awareness)
 8. [Stability Analysis & Control Theory](#8-stability-analysis--control-theory)
-9. [Formal Verification with TLA+ and Z3](#9-formal-verification-with-tla-and-z3)
+9. [Formal Verification with TLA+ and Z3](#9-formal-verification-with-tla+-and-z3)
 10. [Build System Modernization](#10-build-system-modernization)
 
 ---
