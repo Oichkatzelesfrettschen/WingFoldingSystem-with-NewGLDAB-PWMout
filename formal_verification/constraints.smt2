@@ -49,7 +49,7 @@
 (assert (= LtServo (- (* 2 ch1) 1000)))
 
 ; V-tail mixing
-(assert (= RtVtailS (+ ch4 (- (- ch2) 1500))))
+(assert (= RtVtailS (+ ch4 (- 1500 ch2))))
 (assert (= LtVtailS (+ ch4 (- ch2 1500))))
 
 ; Constrain function simulation (must be within valid PWM range)
