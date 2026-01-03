@@ -247,8 +247,12 @@ DeactivateGlideLock ==
   /\ (hallSensorGlide = TRUE \/ rcChannels[3] > GLIDE_THRESHOLD)
   /\ glideActive' = FALSE
   /\ ledState' = "OFF"
+  /\ controlMode' =
+       IF controlMode = "GLIDE_LOCK"
+         THEN CHOOSE m \in {"FLAP_WITH_FOLD", "FLAP_NO_FOLD"} : TRUE
+         ELSE controlMode
   /\ UNCHANGED <<hallSensorWing, hallSensorGlide, rcChannels, wingPhase, 
-                 foldState, controlMode, motorSpeed, servoCommands, 
+                 foldState, motorSpeed, servoCommands, 
                  foldTimer, foldDuration>>
 
 --------------------------------------------------------------------------------
