@@ -230,7 +230,12 @@
 ; Fold trim calculation
 (assert (= WFtrim (- ch7 1000)))
 
-; Wing servo with fold trim
+; Wing servos with fold trim:
+; - Both servos include WFtrim, but with opposite signs, matching:
+;     RtServo = 2*ch1 - 2000 + WFtrim
+;     LtServo = 2*ch1 - 1000 - WFtrim
+; - This intentional asymmetry makes the wings fold by moving the servos
+;   in opposite directions relative to their baseline positions.
 (assert (= RtServoFold (+ (- (* 2 ch1) 2000) WFtrim)))
 (assert (= LtServoFold (- (- (* 2 ch1) 1000) WFtrim)))
 
